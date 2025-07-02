@@ -13,7 +13,7 @@ public class Order {
     private int id;
 
     public Order() {
-        setDefaultValues(this);
+        this.setDefaultValues();
     }
 
     public Order(BigDecimal total, String currency, List<OrderItem> items, BigDecimal tax, OrderStatus status, int id) {
@@ -25,12 +25,12 @@ public class Order {
         this.id = id;
     }
 
-    public static void setDefaultValues(Order order) {
-        order.setStatus(OrderStatus.CREATED);
-        order.setItems(new ArrayList<>());
-        order.setCurrency("EUR");
-        order.setTotal(new BigDecimal("0.00"));
-        order.setTax(new BigDecimal("0.00"));
+    public void setDefaultValues() {
+        setStatus(OrderStatus.CREATED);
+        setItems(new ArrayList<>());
+        setCurrency("EUR");
+        setTotal(new BigDecimal("0.00"));
+        setTax(new BigDecimal("0.00"));
     }
 
     public void setTaxedAmount(BigDecimal taxedAmount) {
