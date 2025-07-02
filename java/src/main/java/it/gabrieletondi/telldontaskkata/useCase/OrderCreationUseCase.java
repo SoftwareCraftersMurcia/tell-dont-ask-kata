@@ -30,11 +30,10 @@ public class OrderCreationUseCase {
                 throw new UnknownProductException();
             }
 
-            final BigDecimal unitaryTax = product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP);
-            final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
+            BigDecimal productPrice = product.getPrice();
             final BigDecimal quantity = valueOf(itemRequest.getQuantity());
-            final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(quantity).setScale(2, HALF_UP);
-            final BigDecimal taxAmount = unitaryTax.multiply(quantity);
+            final BigDecimal taxedAmount = productPrice.add(productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP)).setScale(2, HALF_UP).multiply(quantity).setScale(2, HALF_UP);
+            final BigDecimal taxAmount = productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP).multiply(quantity);
 
             order.addItem(new OrderItem(product, itemRequest.getQuantity(), taxAmount, taxedAmount));
             order.setTaxedAmount(taxedAmount);
