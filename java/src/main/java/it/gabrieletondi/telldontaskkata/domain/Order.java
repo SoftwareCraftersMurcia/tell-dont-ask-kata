@@ -20,7 +20,7 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
-    public void setTaxedAmount(BigDecimal taxedAmount) {
+    private void setTaxedAmount(BigDecimal taxedAmount) {
         setTotal(getTotal().add(taxedAmount));
     }
 
