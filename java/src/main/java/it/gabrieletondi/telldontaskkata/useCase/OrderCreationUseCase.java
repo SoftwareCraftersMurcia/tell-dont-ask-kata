@@ -6,10 +6,7 @@ import it.gabrieletondi.telldontaskkata.domain.Product;
 import it.gabrieletondi.telldontaskkata.repository.OrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
-import java.math.BigDecimal;
-
 import static java.math.BigDecimal.valueOf;
-import static java.math.RoundingMode.HALF_UP;
 
 public class OrderCreationUseCase {
     private final OrderRepository orderRepository;
@@ -29,10 +26,6 @@ public class OrderCreationUseCase {
             if (product == null) {
                 throw new UnknownProductException();
             }
-
-            BigDecimal productPrice = product.getPrice();
-            final BigDecimal quantity = valueOf(itemRequest.getQuantity());
-            final BigDecimal taxAmount = productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP).multiply(quantity);
 
             order.addItem(new OrderItem(product, itemRequest.getQuantity()));
 
