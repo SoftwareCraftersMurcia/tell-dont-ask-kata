@@ -11,7 +11,7 @@ public class OrderItem {
     private BigDecimal taxedAmount;
     private BigDecimal tax;
 
-    public OrderItem(Product product, int quantity, BigDecimal taxAmount, BigDecimal taxedAmount) {
+    public OrderItem(Product product, int quantity) {
         BigDecimal productPrice = product.getPrice();
         final BigDecimal quantityTemp = BigDecimal.valueOf(quantity);
         final BigDecimal taxedAmountTemp = productPrice.add(productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP)).setScale(2, HALF_UP).multiply(quantityTemp).setScale(2, HALF_UP);
