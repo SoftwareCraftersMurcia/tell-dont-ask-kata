@@ -50,7 +50,7 @@ public class OrderItem {
         return tax;
     }
 
-    public void setTax(BigDecimal tax) {
+    private void setTax(BigDecimal tax) {
         this.tax = tax;
     }
 }
