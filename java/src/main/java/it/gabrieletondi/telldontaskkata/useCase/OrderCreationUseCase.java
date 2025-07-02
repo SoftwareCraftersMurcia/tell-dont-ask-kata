@@ -49,7 +49,7 @@ public class OrderCreationUseCase {
                 orderItem.setTaxedAmount(taxedAmount);
                 order.addItem(orderItem);
 
-                Order.getSetTotal(order, taxedAmount);
+                order.setTaxedAmount(taxedAmount);
                 order.setTax(order.getTax().add(taxAmount));
             }
         }
