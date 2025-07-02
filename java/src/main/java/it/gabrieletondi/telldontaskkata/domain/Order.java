@@ -11,6 +11,9 @@ public class Order {
     private OrderStatus status;
     private int id;
 
+    public Order() {
+    }
+
     public void setTaxedAmount(BigDecimal taxedAmount) {
         setTotal(getTotal().add(taxedAmount));
     }
