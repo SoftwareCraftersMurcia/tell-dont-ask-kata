@@ -20,6 +20,10 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
+    public static boolean isShipped(Order order) {
+        return order.getStatus().equals(OrderStatus.SHIPPED);
+    }
+
     public void addItem(OrderItem orderItem) {
         getItems().add(orderItem);
         this.setTaxedAmount(orderItem.getTaxedAmount());
