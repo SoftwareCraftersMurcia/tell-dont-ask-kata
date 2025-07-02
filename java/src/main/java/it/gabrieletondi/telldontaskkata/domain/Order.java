@@ -40,24 +40,6 @@ public class Order {
         setStatus(OrderStatus.REJECTED);
     }
 
-    private void validateIfCanBeChange() {
-        if (isShipped()) {
-            throw new ShippedOrdersCannotBeChangedException();
-        }
-    }
-
-    private boolean isRejected() {
-        return getStatus().equals(OrderStatus.REJECTED);
-    }
-
-    private boolean isApproved() {
-        return getStatus().equals(OrderStatus.APPROVED);
-    }
-
-    private boolean isShipped() {
-        return getStatus().equals(OrderStatus.SHIPPED);
-    }
-
     public void addItem(OrderItem orderItem) {
         getItems().add(orderItem);
         this.setTaxedAmount(orderItem.getTaxedAmount());
@@ -66,10 +48,6 @@ public class Order {
 
     public BigDecimal getTotal() {
         return total;
-    }
-
-    private void setTotal(BigDecimal total) {
-        this.total = total;
     }
 
     public String getCurrency() {
@@ -98,6 +76,28 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    private void validateIfCanBeChange() {
+        if (isShipped()) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
+    }
+
+    private boolean isRejected() {
+        return getStatus().equals(OrderStatus.REJECTED);
+    }
+
+    private boolean isApproved() {
+        return getStatus().equals(OrderStatus.APPROVED);
+    }
+
+    private boolean isShipped() {
+        return getStatus().equals(OrderStatus.SHIPPED);
+    }
+
+    private void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     private void setTaxedAmount(BigDecimal taxedAmount) {
