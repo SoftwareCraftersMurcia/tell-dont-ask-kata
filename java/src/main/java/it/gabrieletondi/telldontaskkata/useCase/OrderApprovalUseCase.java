@@ -28,11 +28,19 @@ public class OrderApprovalUseCase {
         }
 
         if (approved) {
-            order.setStatus(OrderStatus.APPROVED);
+            approve(order);
         } else {
-            order.setStatus(OrderStatus.REJECTED);
+            reject(order);
         }
         orderRepository.save(order);
+    }
+
+    private static void reject(Order order) {
+        order.setStatus(OrderStatus.REJECTED);
+    }
+
+    private static void approve(Order order) {
+        order.setStatus(OrderStatus.APPROVED);
     }
 
 }
