@@ -20,12 +20,12 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
-    public static void approve(Order order) {
-        order.setStatus(OrderStatus.APPROVED);
+    public void approve() {
+        setStatus(OrderStatus.APPROVED);
     }
 
-    public static void reject(Order order) {
-        order.setStatus(OrderStatus.REJECTED);
+    public void reject() {
+        setStatus(OrderStatus.REJECTED);
     }
 
     public boolean isShipped() {

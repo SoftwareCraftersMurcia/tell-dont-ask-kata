@@ -28,9 +28,9 @@ public class OrderApprovalUseCase {
         }
 
         if (approved) {
-            Order.approve(order);
+            order.approve();
         } else {
-            Order.reject(order);
+            order.reject();
         }
         orderRepository.save(order);
     }
