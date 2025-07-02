@@ -47,7 +47,7 @@ public class OrderCreationUseCase {
                 orderItem.setQuantity(itemRequest.getQuantity());
                 orderItem.setTax(taxAmount);
                 orderItem.setTaxedAmount(taxedAmount);
-                Order.addItemToOrder(order, orderItem);
+                order.addItemToOrder(orderItem);
 
                 order.setTotal(order.getTotal().add(taxedAmount));
                 order.setTax(order.getTax().add(taxAmount));

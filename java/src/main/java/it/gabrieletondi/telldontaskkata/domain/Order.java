@@ -11,8 +11,8 @@ public class Order {
     private OrderStatus status;
     private int id;
 
-    public static void addItemToOrder(Order order, OrderItem orderItem) {
-        order.getItems().add(orderItem);
+    public void addItemToOrder(OrderItem orderItem) {
+        getItems().add(orderItem);
     }
 
     public BigDecimal getTotal() {
