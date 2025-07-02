@@ -11,7 +11,7 @@ public class Order {
     private OrderStatus status;
     private int id;
 
-    public void addItemToOrder(OrderItem orderItem) {
+    public void addItem(OrderItem orderItem) {
         getItems().add(orderItem);
     }
 
