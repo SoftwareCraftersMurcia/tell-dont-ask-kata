@@ -15,7 +15,7 @@ public class Order {
     public Order() {
         setStatus(OrderStatus.CREATED);
         setItems(new ArrayList<>());
-        setCurrency("EUR");
+        setCurrency();
         setTotal(new BigDecimal("0.00"));
         setTax(new BigDecimal("0.00"));
     }
@@ -66,8 +66,8 @@ public class Order {
         setTotal(getTotal().add(taxedAmount));
     }
 
-    private void setCurrency(String currency) {
-        this.currency = currency;
+    private void setCurrency() {
+        this.currency = "EUR";
     }
 
     private void setItems(List<OrderItem> items) {
