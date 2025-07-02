@@ -26,7 +26,7 @@ public class Order {
 
     public void approve() {
         validateIfCanBeChange();
-        if (getStatus().equals(OrderStatus.REJECTED)) {
+        if (isRejected()) {
             throw new RejectedOrderCannotBeApprovedException();
         }
         setStatus(OrderStatus.APPROVED);
@@ -34,7 +34,7 @@ public class Order {
 
     public void reject() {
         validateIfCanBeChange();
-        if (getStatus().equals(OrderStatus.APPROVED)) {
+        if (isApproved()) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
         setStatus(OrderStatus.REJECTED);
@@ -44,6 +44,14 @@ public class Order {
         if (isShipped()) {
             throw new ShippedOrdersCannotBeChangedException();
         }
+    }
+
+    private boolean isRejected() {
+        return getStatus().equals(OrderStatus.REJECTED);
+    }
+
+    private boolean isApproved() {
+        return getStatus().equals(OrderStatus.APPROVED);
     }
 
     private boolean isShipped() {
