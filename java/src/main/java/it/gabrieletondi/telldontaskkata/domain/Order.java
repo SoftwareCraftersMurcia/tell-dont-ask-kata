@@ -27,6 +27,7 @@ public class Order {
     public void addItem(OrderItem orderItem) {
         getItems().add(orderItem);
         this.setTaxedAmount(orderItem.getTaxedAmount());
+        this.setTax(this.getTax().add(orderItem.getTax()));
     }
 
     public BigDecimal getTotal() {

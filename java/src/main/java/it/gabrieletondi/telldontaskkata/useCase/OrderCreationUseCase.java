@@ -35,7 +35,6 @@ public class OrderCreationUseCase {
             final BigDecimal taxAmount = productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP).multiply(quantity);
 
             order.addItem(new OrderItem(product, itemRequest.getQuantity()));
-            order.setTax(order.getTax().add(taxAmount));
 
         }
 
