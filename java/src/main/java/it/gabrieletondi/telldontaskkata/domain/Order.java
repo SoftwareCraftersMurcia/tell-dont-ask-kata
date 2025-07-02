@@ -46,7 +46,7 @@ public class Order {
         }
     }
 
-    public boolean isShipped() {
+    private boolean isShipped() {
         return getStatus().equals(OrderStatus.SHIPPED);
     }
 
