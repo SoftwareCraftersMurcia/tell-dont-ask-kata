@@ -20,15 +20,6 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
-    public Order(BigDecimal total, String currency, List<OrderItem> items, BigDecimal tax, OrderStatus status, int id) {
-        this.total = total;
-        this.currency = currency;
-        this.items = items;
-        this.tax = tax;
-        this.status = status;
-        this.id = id;
-    }
-
     public void setTaxedAmount(BigDecimal taxedAmount) {
         setTotal(getTotal().add(taxedAmount));
     }
