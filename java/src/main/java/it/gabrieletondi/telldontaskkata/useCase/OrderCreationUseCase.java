@@ -29,16 +29,16 @@ public class OrderCreationUseCase {
             if (product == null) {
                 throw new UnknownProductException();
             }
-            else {
-                final BigDecimal unitaryTax = product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP);
-                final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
-                final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
-                final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
 
-                order.addItem(new OrderItem(product, itemRequest.getQuantity(), taxAmount, taxedAmount));
-                order.setTaxedAmount(taxedAmount);
-                order.setTax(order.getTax().add(taxAmount));
-            }
+            final BigDecimal unitaryTax = product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP);
+            final BigDecimal unitaryTaxedAmount = product.getPrice().add(unitaryTax).setScale(2, HALF_UP);
+            final BigDecimal taxedAmount = unitaryTaxedAmount.multiply(BigDecimal.valueOf(itemRequest.getQuantity())).setScale(2, HALF_UP);
+            final BigDecimal taxAmount = unitaryTax.multiply(BigDecimal.valueOf(itemRequest.getQuantity()));
+
+            order.addItem(new OrderItem(product, itemRequest.getQuantity(), taxAmount, taxedAmount));
+            order.setTaxedAmount(taxedAmount);
+            order.setTax(order.getTax().add(taxAmount));
+
         }
 
         orderRepository.save(order);
