@@ -24,11 +24,7 @@ public class OrderCreationUseCase {
 
     public void run(SellItemsRequest request) {
         Order order = new Order();
-        order.setStatus(OrderStatus.CREATED);
-        order.setItems(new ArrayList<>());
-        order.setCurrency("EUR");
-        order.setTotal(new BigDecimal("0.00"));
-        order.setTax(new BigDecimal("0.00"));
+        setInitValues(order);
 
         for (SellItemRequest itemRequest : request.getRequests()) {
             Product product = productCatalog.getByName(itemRequest.getProductName());
@@ -55,6 +51,14 @@ public class OrderCreationUseCase {
         }
 
         orderRepository.save(order);
+    }
+
+    private static void setInitValues(Order order) {
+        order.setStatus(OrderStatus.CREATED);
+        order.setItems(new ArrayList<>());
+        order.setCurrency("EUR");
+        order.setTotal(new BigDecimal("0.00"));
+        order.setTax(new BigDecimal("0.00"));
     }
 
 }
