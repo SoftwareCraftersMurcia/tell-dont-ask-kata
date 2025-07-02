@@ -11,6 +11,10 @@ public class Order {
     private OrderStatus status;
     private int id;
 
+    public static void getSetTotal(Order order, BigDecimal taxedAmount) {
+        order.setTotal(order.getTotal().add(taxedAmount));
+    }
+
     public void addItem(OrderItem orderItem) {
         getItems().add(orderItem);
     }
