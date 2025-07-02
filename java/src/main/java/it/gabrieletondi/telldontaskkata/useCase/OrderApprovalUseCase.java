@@ -14,7 +14,7 @@ public class OrderApprovalUseCase {
     public void run(OrderApprovalRequest request) {
         final Order order = orderRepository.getById(request.getOrderId());
 
-        if (order.getStatus().equals(OrderStatus.SHIPPED)) {
+        if (isShipped(order)) {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
@@ -28,5 +28,9 @@ public class OrderApprovalUseCase {
 
         order.setStatus(request.isApproved() ? OrderStatus.APPROVED : OrderStatus.REJECTED);
         orderRepository.save(order);
+    }
+
+    private static boolean isShipped(Order order) {
+        return order.getStatus().equals(OrderStatus.SHIPPED);
     }
 }
