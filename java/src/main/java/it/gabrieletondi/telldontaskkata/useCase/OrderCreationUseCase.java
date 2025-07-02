@@ -49,12 +49,16 @@ public class OrderCreationUseCase {
                 orderItem.setTaxedAmount(taxedAmount);
                 order.addItem(orderItem);
 
-                order.setTotal(order.getTotal().add(taxedAmount));
+                getSetTotal(order, taxedAmount);
                 order.setTax(order.getTax().add(taxAmount));
             }
         }
 
         orderRepository.save(order);
+    }
+
+    private static void getSetTotal(Order order, BigDecimal taxedAmount) {
+        order.setTotal(order.getTotal().add(taxedAmount));
     }
 
 }
