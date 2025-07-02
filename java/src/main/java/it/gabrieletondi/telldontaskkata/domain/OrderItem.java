@@ -42,7 +42,7 @@ public class OrderItem {
         return taxedAmount;
     }
 
-    public void setTaxedAmount(BigDecimal taxedAmount) {
+    private void setTaxedAmount(BigDecimal taxedAmount) {
         this.taxedAmount = taxedAmount;
     }
 
