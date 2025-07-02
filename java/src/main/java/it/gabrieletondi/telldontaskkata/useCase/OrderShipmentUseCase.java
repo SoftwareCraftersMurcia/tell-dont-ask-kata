@@ -31,7 +31,11 @@ public class OrderShipmentUseCase {
 
         shipmentService.ship(order);
 
-        order.setStatus(OrderStatus.SHIPPED);
+        ship(order);
         orderRepository.save(order);
+    }
+
+    private static void ship(Order order) {
+        order.setStatus(OrderStatus.SHIPPED);
     }
 }
