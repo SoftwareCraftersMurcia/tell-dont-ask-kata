@@ -20,10 +20,6 @@ public class OrderApprovalUseCase {
 
         boolean approved = request.isApproved();
 
-        if (!approved && order.getStatus().equals(OrderStatus.APPROVED)) {
-            throw new ApprovedOrderCannotBeRejectedException();
-        }
-
         if (approved) {
             order.approve();
         } else {

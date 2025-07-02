@@ -1,5 +1,6 @@
 package it.gabrieletondi.telldontaskkata.domain;
 
+import it.gabrieletondi.telldontaskkata.useCase.ApprovedOrderCannotBeRejectedException;
 import it.gabrieletondi.telldontaskkata.useCase.RejectedOrderCannotBeApprovedException;
 
 import java.math.BigDecimal;
@@ -30,6 +31,9 @@ public class Order {
     }
 
     public void reject() {
+        if (getStatus().equals(OrderStatus.APPROVED)) {
+            throw new ApprovedOrderCannotBeRejectedException();
+        }
         setStatus(OrderStatus.REJECTED);
     }
 
