@@ -24,6 +24,10 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
+    public void ship() {
+        setStatus(OrderStatus.SHIPPED);
+    }
+
     public void approve() {
         validateIfCanBeChange();
         if (isRejected()) {
