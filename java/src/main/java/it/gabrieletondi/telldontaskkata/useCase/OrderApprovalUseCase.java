@@ -27,7 +27,11 @@ public class OrderApprovalUseCase {
             throw new ApprovedOrderCannotBeRejectedException();
         }
 
-        order.setStatus(approved ? OrderStatus.APPROVED : OrderStatus.REJECTED);
+        if (approved) {
+            order.setStatus(OrderStatus.APPROVED);
+        } else {
+            order.setStatus(OrderStatus.REJECTED);
+        }
         orderRepository.save(order);
     }
 
