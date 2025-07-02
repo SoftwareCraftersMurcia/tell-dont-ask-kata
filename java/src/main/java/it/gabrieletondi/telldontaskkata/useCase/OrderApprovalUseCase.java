@@ -18,9 +18,7 @@ public class OrderApprovalUseCase {
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        boolean approved = request.isApproved();
-
-        if (approved) {
+        if (request.isApproved()) {
             order.approve();
         } else {
             order.reject();
