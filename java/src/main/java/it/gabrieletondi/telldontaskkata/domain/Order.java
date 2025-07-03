@@ -24,6 +24,27 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
+    public static Order createWithId(int id) {
+        Order order = new Order();
+        order.setStatus(OrderStatus.CREATED);
+        order.setId(1);
+        return order;
+    }
+
+    public static Order createRejectedWithId(int id) {
+        Order order = new Order();
+        order.setStatus(OrderStatus.REJECTED);
+        order.setId(1);
+        return order;
+    }
+
+    public static Order createApprovedWithId(int id) {
+        Order order = new Order();
+        order.setStatus(OrderStatus.APPROVED);
+        order.setId(1);
+        return order;
+    }
+
     public void ship() {
         if (isCreated() || isRejected()) {
             throw new OrderCannotBeShippedException();
