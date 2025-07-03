@@ -71,9 +71,7 @@ public class OrderApprovalUseCaseTest {
 
     @Test
     public void shippedOrdersCannotBeApproved() throws Exception {
-        Order initialOrder = new Order();
-        initialOrder.setStatus(OrderStatus.SHIPPED);
-        initialOrder.setId(1);
+        Order initialOrder = Order.createShippedWithId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();
@@ -86,9 +84,7 @@ public class OrderApprovalUseCaseTest {
 
     @Test
     public void shippedOrdersCannotBeRejected() throws Exception {
-        Order initialOrder = new Order();
-        initialOrder.setStatus(OrderStatus.SHIPPED);
-        initialOrder.setId(1);
+        Order initialOrder = Order.createShippedWithId(1);
         orderRepository.addOrder(initialOrder);
 
         OrderApprovalRequest request = new OrderApprovalRequest();

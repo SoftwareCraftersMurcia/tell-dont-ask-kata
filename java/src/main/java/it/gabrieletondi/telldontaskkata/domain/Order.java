@@ -45,6 +45,13 @@ public class Order {
         return order;
     }
 
+    public static Order createShippedWithId(int id) {
+        Order initialOrder = new Order();
+        initialOrder.setStatus(OrderStatus.SHIPPED);
+        initialOrder.setId(1);
+        return initialOrder;
+    }
+
     public void ship() {
         if (isCreated() || isRejected()) {
             throw new OrderCannotBeShippedException();
