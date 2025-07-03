@@ -27,28 +27,28 @@ public class Order {
     public static Order createWithId(int id) {
         Order order = new Order();
         order.setStatus(OrderStatus.CREATED);
-        order.setId(1);
+        order.setId(id);
         return order;
     }
 
     public static Order createRejectedWithId(int id) {
         Order order = new Order();
         order.setStatus(OrderStatus.REJECTED);
-        order.setId(1);
+        order.setId(id);
         return order;
     }
 
     public static Order createApprovedWithId(int id) {
         Order order = new Order();
         order.setStatus(OrderStatus.APPROVED);
-        order.setId(1);
+        order.setId(id);
         return order;
     }
 
     public static Order createShippedWithId(int id) {
         Order initialOrder = new Order();
         initialOrder.setStatus(OrderStatus.SHIPPED);
-        initialOrder.setId(1);
+        initialOrder.setId(id);
         return initialOrder;
     }
 
