@@ -17,14 +17,16 @@ public class OrderShipmentUseCaseTest {
 
     @Test
     public void shipApprovedOrder() {
-        orderRepository.addOrder(Order.createApprovedWithId(1));
+        Order initialOrder = Order.createApprovedWithId(1);
+        orderRepository.addOrder(initialOrder);
+
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
         useCase.run(request);
 
         assertThat(orderRepository.getSavedOrder().getStatus()).isEqualTo(OrderStatus.SHIPPED);
-        assertThat(shipmentService.getShippedOrder()).isEqualTo(Order.createApprovedWithId(1));
+        assertThat(shipmentService.getShippedOrder()).isEqualTo(initialOrder);
     }
 
     @Test
@@ -42,6 +44,7 @@ public class OrderShipmentUseCaseTest {
     @Test
     public void rejectedOrdersCannotBeShipped() {
         orderRepository.addOrder(Order.createRejectedWithId(1));
+
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
@@ -52,7 +55,9 @@ public class OrderShipmentUseCaseTest {
 
     @Test
     public void shippedOrdersCannotBeShippedAgain() {
-        orderRepository.addOrder(Order.createShippedWithId(1));
+        Order initialOrder = Order.createShippedWithId(1);
+        orderRepository.addOrder(initialOrder);
+
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
