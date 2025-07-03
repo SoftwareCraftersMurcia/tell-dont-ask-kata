@@ -14,7 +14,7 @@ public class Order {
     private final List<OrderItem> items;
     private BigDecimal tax;
     private OrderStatus status;
-    private int id;
+    private final int id;
 
     private Order(OrderStatus orderStatus, int id) {
         this.status = orderStatus;
