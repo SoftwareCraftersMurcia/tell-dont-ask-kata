@@ -40,13 +40,8 @@ public class OrderCreationUseCaseTest {
 
     @Test
     public void sellMultipleItems() throws Exception {
-        SellItemRequest saladRequest = new SellItemRequest();
-        saladRequest.setProductName("salad");
-        saladRequest.setQuantity(2);
-
-        SellItemRequest tomatoRequest = new SellItemRequest();
-        tomatoRequest.setProductName("tomato");
-        tomatoRequest.setQuantity(3);
+        SellItemRequest saladRequest = new SellItemRequest("salad", 2);
+        SellItemRequest tomatoRequest = new SellItemRequest("tomato", 3);
 
         final SellItemsRequest request = new SellItemsRequest();
         request.addSellItemRequest(saladRequest);
