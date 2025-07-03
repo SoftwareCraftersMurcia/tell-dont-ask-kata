@@ -23,8 +23,7 @@ public class OrderItem {
     }
 
     private static BigDecimal calculateTaxedAmount(Product product, int quantity) {
-        BigDecimal productPrice = product.getPrice();
-        return productPrice.add(productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP)).setScale(2, HALF_UP).multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
+        return product.getPrice().add(product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP)).setScale(2, HALF_UP).multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
     }
 
     public Product getProduct() {
