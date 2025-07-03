@@ -8,8 +8,6 @@ import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
 import java.util.random.RandomGenerator;
 
-import static java.math.BigDecimal.valueOf;
-
 public class OrderCreationUseCase {
     private final OrderRepository orderRepository;
     private final ProductCatalog productCatalog;
