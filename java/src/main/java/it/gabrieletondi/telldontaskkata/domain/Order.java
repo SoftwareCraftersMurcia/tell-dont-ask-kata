@@ -16,7 +16,7 @@ public class Order {
     private OrderStatus status;
     private int id;
 
-    public Order(OrderStatus orderStatus, int id) {
+    private Order(OrderStatus orderStatus, int id) {
         this.status = orderStatus;
         this.items = new ArrayList<>();
         this.currency = "EUR";
