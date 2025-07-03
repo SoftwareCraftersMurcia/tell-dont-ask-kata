@@ -30,7 +30,9 @@ public class Order {
     }
 
     public void approve() {
-        validateIfCanBeChange();
+        if (isShipped()) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
         if (isRejected()) {
             throw new RejectedOrderCannotBeApprovedException();
         }
@@ -38,7 +40,9 @@ public class Order {
     }
 
     public void reject() {
-        validateIfCanBeChange();
+        if (isShipped()) {
+            throw new ShippedOrdersCannotBeChangedException();
+        }
         if (isApproved()) {
             throw new ApprovedOrderCannotBeRejectedException();
         }
@@ -90,12 +94,6 @@ public class Order {
 
         if (isShipped()) {
             throw new OrderCannotBeShippedTwiceException();
-        }
-    }
-
-    private void validateIfCanBeChange() {
-        if (isShipped()) {
-            throw new ShippedOrdersCannotBeChangedException();
         }
     }
 
