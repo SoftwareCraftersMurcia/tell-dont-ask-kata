@@ -31,11 +31,7 @@ public class OrderShipmentUseCaseTest {
 
     @Test
     public void createdOrdersCannotBeShipped() throws Exception {
-        Order initialOrder = new Order();
-        initialOrder.setId(1);
-        initialOrder.setStatus(OrderStatus.CREATED);
-        orderRepository.addOrder(initialOrder);
-
+        orderRepository.addOrder(Order.createWithId(1));
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
 
