@@ -2,8 +2,6 @@ package it.gabrieletondi.telldontaskkata.domain;
 
 import java.math.BigDecimal;
 
-import static java.math.RoundingMode.HALF_UP;
-
 public class OrderItem {
     private Product product;
     private int quantity;
@@ -15,14 +13,7 @@ public class OrderItem {
         this.setQuantity(quantity);
         BigDecimal taxAmount = product.calculateTaxAmountForQuantity(quantity);
         this.setTax(taxAmount);
-        this.setTaxedAmount(calculateTaxedAmount(product, quantity));
-    }
-
-    private static BigDecimal calculateTaxedAmount(Product product, int quantity) {
-        return product.getPrice().
-                add(product.tax())
-                .setScale(2, HALF_UP)
-                .multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
+        this.setTaxedAmount(product.calculateTaxedAmount(quantity));
     }
 
     public Product getProduct() {

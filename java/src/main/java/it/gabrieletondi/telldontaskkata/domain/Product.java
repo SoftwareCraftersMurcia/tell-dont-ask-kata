@@ -10,6 +10,13 @@ public class Product {
     private BigDecimal price;
     private Category category;
 
+    BigDecimal calculateTaxedAmount(int quantity) {
+        return getPrice().
+                add(tax())
+                .setScale(2, HALF_UP)
+                .multiply(valueOf(quantity)).setScale(2, HALF_UP);
+    }
+
     BigDecimal calculateTaxAmountForQuantity(int quantity) {
         return tax()
                 .multiply(valueOf(quantity));
