@@ -12,10 +12,6 @@ public class SellItemRequest {
         this.quantity = quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
     public void setProductName(String productName) {
         this.productName = productName;
     }
