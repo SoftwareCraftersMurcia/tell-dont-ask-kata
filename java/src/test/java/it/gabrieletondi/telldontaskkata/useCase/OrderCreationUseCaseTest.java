@@ -9,7 +9,6 @@ import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import org.junit.jupiter.api.Test;
@@ -50,9 +49,8 @@ public class OrderCreationUseCaseTest {
         tomatoRequest.setQuantity(3);
 
         final SellItemsRequest request = new SellItemsRequest();
-        request.setRequests(new ArrayList<>());
-        request.getRequests().add(saladRequest);
-        request.getRequests().add(tomatoRequest);
+        request.addSellItemRequest(saladRequest);
+        request.addSellItemRequest(tomatoRequest);
 
         useCase.run(request);
 
@@ -77,11 +75,11 @@ public class OrderCreationUseCaseTest {
     @Test
     public void unknownProduct() throws Exception {
         SellItemsRequest request = new SellItemsRequest();
-        request.setRequests(new ArrayList<>());
         SellItemRequest unknownProductRequest = new SellItemRequest();
         unknownProductRequest.setProductName("unknown product");
-        request.getRequests().add(unknownProductRequest);
+        request.addSellItemRequest(unknownProductRequest);
 
         assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(UnknownProductException.class);
     }
+
 }
