@@ -19,9 +19,7 @@ public class OrderShipmentUseCaseTest {
     public void shipApprovedOrder() {
         Order initialOrder = Order.createApprovedWithId(1);
         orderRepository.addOrder(initialOrder);
-
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
 
         useCase.run(request);
 
