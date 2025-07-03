@@ -12,14 +12,19 @@ public class OrderItem {
     private BigDecimal tax;
 
     public OrderItem(Product product, int quantity) {
-        BigDecimal productPrice = product.getPrice();
-        final BigDecimal quantityTemp = BigDecimal.valueOf(quantity);
-        final BigDecimal taxedAmountTemp = productPrice.add(productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP)).setScale(2, HALF_UP).multiply(quantityTemp).setScale(2, HALF_UP);
-        final BigDecimal taxAmountTemp = productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP).multiply(quantityTemp);
+        final BigDecimal productPrice = product.getPrice();
         this.setProduct(product);
         this.setQuantity(quantity);
-        this.setTax(taxAmountTemp);
-        this.setTaxedAmount(taxedAmountTemp);
+        this.setTax(calculateTaxAmount(product, quantity, productPrice));
+        this.setTaxedAmount(calculateTaxedAmount(product, quantity, productPrice));
+    }
+
+    private static BigDecimal calculateTaxAmount(Product product, int quantity, BigDecimal productPrice) {
+        return productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP).multiply(BigDecimal.valueOf(quantity));
+    }
+
+    private static BigDecimal calculateTaxedAmount(Product product, int quantity, BigDecimal productPrice) {
+        return productPrice.add(productPrice.divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP)).setScale(2, HALF_UP).multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
     }
 
     public Product getProduct() {
