@@ -35,6 +35,7 @@ public class Order {
     }
 
     public void ship() {
+        validateIfCouldBeShipped();
         setStatus(OrderStatus.SHIPPED);
     }
 
