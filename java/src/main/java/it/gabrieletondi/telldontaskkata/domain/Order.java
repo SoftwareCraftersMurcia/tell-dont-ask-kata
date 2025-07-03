@@ -10,8 +10,8 @@ import static it.gabrieletondi.telldontaskkata.domain.OrderStatus.*;
 
 public class Order {
     private BigDecimal total;
-    private String currency;
-    private List<OrderItem> items;
+    private final String currency;
+    private final List<OrderItem> items;
     private BigDecimal tax;
     private OrderStatus status;
     private int id;
