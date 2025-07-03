@@ -11,8 +11,7 @@ public class OrderItem {
     public OrderItem(Product product, int quantity) {
         this.setProduct(product);
         this.setQuantity(quantity);
-        BigDecimal taxAmount = product.calculateTaxAmountForQuantity(quantity);
-        this.setTax(taxAmount);
+        this.setTax(product.calculateTaxAmountForQuantity(quantity));
         this.setTaxedAmount(product.calculateTaxedAmount(quantity));
     }
 
