@@ -24,7 +24,7 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
-    public void validateIfCouldBeShipped() {
+    private void validateIfCouldBeShipped() {
         if (getStatus().equals(CREATED) || getStatus().equals(REJECTED)) {
             throw new OrderCannotBeShippedException();
         }
