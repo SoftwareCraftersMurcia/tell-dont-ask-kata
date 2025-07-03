@@ -25,7 +25,13 @@ public class Order {
     }
 
     public void ship() {
-        validateIfCouldBeShipped();
+        if (isCreated() || isRejected()) {
+            throw new OrderCannotBeShippedException();
+        }
+
+        if (isShipped()) {
+            throw new OrderCannotBeShippedTwiceException();
+        }
         setStatus(OrderStatus.SHIPPED);
     }
 
@@ -85,16 +91,6 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    private void validateIfCouldBeShipped() {
-        if (isCreated() || isRejected()) {
-            throw new OrderCannotBeShippedException();
-        }
-
-        if (isShipped()) {
-            throw new OrderCannotBeShippedTwiceException();
-        }
     }
 
     private boolean isCreated() {
