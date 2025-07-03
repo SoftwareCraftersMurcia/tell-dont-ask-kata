@@ -15,12 +15,8 @@ public class OrderApprovalUseCaseTest {
 
     @Test
     public void approvedExistingOrder() throws Exception {
-        Order initialOrder = Order.createWithId(1);
-        orderRepository.addOrder(initialOrder);
-
-        OrderApprovalRequest request = new OrderApprovalRequest();
-        request.setOrderId(1);
-        request.setApproved(true);
+        orderRepository.addOrder(Order.createWithId(1));
+        OrderApprovalRequest request = new OrderApprovalRequest(1, true);
 
         useCase.run(request);
 
