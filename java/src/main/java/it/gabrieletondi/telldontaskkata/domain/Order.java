@@ -24,16 +24,6 @@ public class Order {
         setTax(new BigDecimal("0.00"));
     }
 
-    private void validateIfCouldBeShipped() {
-        if (isCreated() || isRejected()) {
-            throw new OrderCannotBeShippedException();
-        }
-
-        if (isShipped()) {
-            throw new OrderCannotBeShippedTwiceException();
-        }
-    }
-
     public void ship() {
         validateIfCouldBeShipped();
         setStatus(OrderStatus.SHIPPED);
@@ -91,6 +81,16 @@ public class Order {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    private void validateIfCouldBeShipped() {
+        if (isCreated() || isRejected()) {
+            throw new OrderCannotBeShippedException();
+        }
+
+        if (isShipped()) {
+            throw new OrderCannotBeShippedTwiceException();
+        }
     }
 
     private void validateIfCanBeChange() {
