@@ -24,32 +24,29 @@ public class Order {
         this.tax = new BigDecimal("0.00");
     }
 
+    public Order(OrderStatus orderStatus, int id) {
+        this.status = orderStatus;
+        this.items = new ArrayList<>();
+        this.currency = "EUR";
+        this.total = new BigDecimal("0.00");
+        this.tax = new BigDecimal("0.00");
+        this.id = id;
+    }
+
     public static Order createWithId(int id) {
-        Order order = new Order();
-        order.setStatus(OrderStatus.CREATED);
-        order.setId(id);
-        return order;
+        return new Order(OrderStatus.CREATED, id);
     }
 
     public static Order createRejectedWithId(int id) {
-        Order order = new Order();
-        order.setStatus(OrderStatus.REJECTED);
-        order.setId(id);
-        return order;
+        return new Order(OrderStatus.REJECTED, id);
     }
 
     public static Order createApprovedWithId(int id) {
-        Order order = new Order();
-        order.setStatus(OrderStatus.APPROVED);
-        order.setId(id);
-        return order;
+        return new Order(OrderStatus.APPROVED, id);
     }
 
     public static Order createShippedWithId(int id) {
-        Order initialOrder = new Order();
-        initialOrder.setStatus(OrderStatus.SHIPPED);
-        initialOrder.setId(id);
-        return initialOrder;
+        return new Order(OrderStatus.SHIPPED, id);
     }
 
     public void ship() {
