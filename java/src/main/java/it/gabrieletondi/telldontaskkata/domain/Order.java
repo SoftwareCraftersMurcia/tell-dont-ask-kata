@@ -25,11 +25,11 @@ public class Order {
     }
 
     private void validateIfCouldBeShipped() {
-        if (getStatus().equals(CREATED) || getStatus().equals(REJECTED)) {
+        if (isCreated() || isRejected()) {
             throw new OrderCannotBeShippedException();
         }
 
-        if (getStatus().equals(SHIPPED)) {
+        if (isShipped()) {
             throw new OrderCannotBeShippedTwiceException();
         }
     }
@@ -97,6 +97,10 @@ public class Order {
         if (isShipped()) {
             throw new ShippedOrdersCannotBeChangedException();
         }
+    }
+
+    private boolean isCreated() {
+        return getStatus().equals(CREATED);
     }
 
     private boolean isRejected() {
