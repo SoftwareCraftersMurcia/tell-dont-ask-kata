@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SellItemsRequest {
-    private List<SellItemRequest> requests;
+    private final List<SellItemRequest> requests;
 
     public SellItemsRequest() {
         this.requests = new ArrayList<>();
@@ -12,10 +12,6 @@ public class SellItemsRequest {
 
     void addSellItemRequest(SellItemRequest unknownProductRequest) {
         getRequests().add(unknownProductRequest);
-    }
-
-    public void setRequests(List<SellItemRequest> requests) {
-        this.requests = requests;
     }
 
     public List<SellItemRequest> getRequests() {
