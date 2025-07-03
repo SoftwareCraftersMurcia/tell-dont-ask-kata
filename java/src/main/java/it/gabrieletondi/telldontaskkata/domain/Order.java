@@ -17,11 +17,11 @@ public class Order {
     private int id;
 
     public Order() {
-        setStatus(OrderStatus.CREATED);
-        setItems(new ArrayList<>());
-        setCurrency();
-        setTotal(new BigDecimal("0.00"));
-        setTax(new BigDecimal("0.00"));
+        this.status = CREATED;
+        this.items = new ArrayList<>();
+        this.currency = "EUR";
+        this.total = new BigDecimal("0.00");
+        this.tax = new BigDecimal("0.00");
     }
 
     public static Order createWithId(int id) {
@@ -143,14 +143,6 @@ public class Order {
 
     private void setTaxedAmount(BigDecimal taxedAmount) {
         setTotal(getTotal().add(taxedAmount));
-    }
-
-    private void setCurrency() {
-        this.currency = "EUR";
-    }
-
-    private void setItems(List<OrderItem> items) {
-        this.items = items;
     }
 
     private void setTax(BigDecimal tax) {
