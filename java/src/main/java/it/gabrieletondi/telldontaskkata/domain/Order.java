@@ -16,14 +16,6 @@ public class Order {
     private OrderStatus status;
     private int id;
 
-    public Order() {
-        this.status = CREATED;
-        this.items = new ArrayList<>();
-        this.currency = "EUR";
-        this.total = new BigDecimal("0.00");
-        this.tax = new BigDecimal("0.00");
-    }
-
     public Order(OrderStatus orderStatus, int id) {
         this.status = orderStatus;
         this.items = new ArrayList<>();
