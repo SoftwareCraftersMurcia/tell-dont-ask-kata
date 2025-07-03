@@ -14,16 +14,28 @@ public class OrderItem {
     public OrderItem(Product product, int quantity) {
         this.setProduct(product);
         this.setQuantity(quantity);
-        this.setTax(calculateTaxAmount(product, quantity));
-        this.setTaxedAmount(calculateTaxedAmount(product, quantity));
+        BigDecimal taxAmount = calculateTaxAmount(product, quantity);
+        this.setTax(taxAmount);
+        this.setTaxedAmount(calculateTaxedAmount(product, quantity, taxAmount));
     }
 
     private static BigDecimal calculateTaxAmount(Product product, int quantity) {
-        return product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP).multiply(BigDecimal.valueOf(quantity));
+        return tax(product)
+                .multiply(BigDecimal.valueOf(quantity));
     }
 
-    private static BigDecimal calculateTaxedAmount(Product product, int quantity) {
-        return product.getPrice().add(product.getPrice().divide(valueOf(100)).multiply(product.getCategory().getTaxPercentage()).setScale(2, HALF_UP)).setScale(2, HALF_UP).multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
+    private static BigDecimal calculateTaxedAmount(Product product, int quantity, BigDecimal taxAmount) {
+        return product.getPrice().
+                add(tax(product))
+                .setScale(2, HALF_UP)
+                .multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
+    }
+
+    private static BigDecimal tax(Product product) {
+        return product.getPrice()
+                .divide(valueOf(100))
+                .multiply(product.getCategory().getTaxPercentage())
+                .setScale(2, HALF_UP);
     }
 
     public Product getProduct() {
