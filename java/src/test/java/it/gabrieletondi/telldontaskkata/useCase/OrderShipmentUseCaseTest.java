@@ -30,8 +30,7 @@ public class OrderShipmentUseCaseTest {
     @Test
     public void createdOrdersCannotBeShipped() {
         orderRepository.addOrder(Order.createWithId(1));
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
 
         assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
 
@@ -42,9 +41,7 @@ public class OrderShipmentUseCaseTest {
     @Test
     public void rejectedOrdersCannotBeShipped() {
         orderRepository.addOrder(Order.createRejectedWithId(1));
-
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
 
         assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(OrderCannotBeShippedException.class);
         assertThat(orderRepository.getSavedOrder()).isNull();
@@ -55,9 +52,7 @@ public class OrderShipmentUseCaseTest {
     public void shippedOrdersCannotBeShippedAgain() {
         Order initialOrder = Order.createShippedWithId(1);
         orderRepository.addOrder(initialOrder);
-
-        OrderShipmentRequest request = new OrderShipmentRequest();
-        request.setOrderId(1);
+        OrderShipmentRequest request = new OrderShipmentRequest(1);
 
         assertThatThrownBy(() -> useCase.run(request)).isExactlyInstanceOf(OrderCannotBeShippedTwiceException.class);
 
