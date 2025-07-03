@@ -20,22 +20,15 @@ public class OrderItem {
     }
 
     private static BigDecimal calculateTaxAmount(Product product, int quantity) {
-        return tax(product)
+        return product.tax()
                 .multiply(BigDecimal.valueOf(quantity));
     }
 
     private static BigDecimal calculateTaxedAmount(Product product, int quantity, BigDecimal taxAmount) {
         return product.getPrice().
-                add(tax(product))
+                add(product.tax())
                 .setScale(2, HALF_UP)
                 .multiply(BigDecimal.valueOf(quantity)).setScale(2, HALF_UP);
-    }
-
-    private static BigDecimal tax(Product product) {
-        return product.getPrice()
-                .divide(valueOf(100))
-                .multiply(product.getCategory().getTaxPercentage())
-                .setScale(2, HALF_UP);
     }
 
     public Product getProduct() {
