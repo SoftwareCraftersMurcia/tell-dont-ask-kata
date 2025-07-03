@@ -14,7 +14,7 @@ public class OrderApprovalUseCaseTest {
     private final OrderApprovalUseCase useCase = new OrderApprovalUseCase(orderRepository);
 
     @Test
-    public void approvedExistingOrder() throws Exception {
+    public void approvedExistingOrder() {
         orderRepository.addOrder(Order.createWithId(1));
         OrderApprovalRequest request = new OrderApprovalRequest(1, true);
 
@@ -25,7 +25,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void rejectedExistingOrder() throws Exception {
+    public void rejectedExistingOrder() {
         Order initialOrder = Order.createWithId(1);
         orderRepository.addOrder(initialOrder);
         OrderApprovalRequest request = new OrderApprovalRequest(1, false);
@@ -37,7 +37,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void cannotApproveRejectedOrder() throws Exception {
+    public void cannotApproveRejectedOrder() {
         Order initialOrder = Order.createRejectedWithId(1);
         orderRepository.addOrder(initialOrder);
         OrderApprovalRequest request = new OrderApprovalRequest(1, true);
@@ -47,7 +47,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void cannotRejectApprovedOrder() throws Exception {
+    public void cannotRejectApprovedOrder() {
         Order initialOrder = Order.createApprovedWithId(1);
         orderRepository.addOrder(initialOrder);
         OrderApprovalRequest request = new OrderApprovalRequest(1, false);
@@ -57,7 +57,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void shippedOrdersCannotBeApproved() throws Exception {
+    public void shippedOrdersCannotBeApproved() {
         Order initialOrder = Order.createShippedWithId(1);
         orderRepository.addOrder(initialOrder);
         OrderApprovalRequest request = new OrderApprovalRequest(1, true);
@@ -67,7 +67,7 @@ public class OrderApprovalUseCaseTest {
     }
 
     @Test
-    public void shippedOrdersCannotBeRejected() throws Exception {
+    public void shippedOrdersCannotBeRejected() {
         Order initialOrder = Order.createShippedWithId(1);
         orderRepository.addOrder(initialOrder);
         OrderApprovalRequest request = new OrderApprovalRequest(1, false);
