@@ -10,8 +10,8 @@ public class SellItemsRequest {
         this.requests = new ArrayList<>();
     }
 
-    void addSellItemRequest(SellItemRequest unknownProductRequest) {
-        getRequests().add(unknownProductRequest);
+    void addSellItemRequest(SellItemRequest productRequest) {
+        getRequests().add(productRequest);
     }
 
     public List<SellItemRequest> getRequests() {
