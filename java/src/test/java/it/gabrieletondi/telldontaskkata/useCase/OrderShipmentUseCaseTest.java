@@ -43,10 +43,7 @@ public class OrderShipmentUseCaseTest {
 
     @Test
     public void rejectedOrdersCannotBeShipped() {
-        Order initialOrder = new Order();
-        initialOrder.setId(1);
-        initialOrder.setStatus(OrderStatus.REJECTED);
-        orderRepository.addOrder(initialOrder);
+        orderRepository.addOrder(Order.createRejectedWithId(1));
 
         OrderShipmentRequest request = new OrderShipmentRequest();
         request.setOrderId(1);
