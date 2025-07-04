@@ -36,30 +36,34 @@ class OrderCreationUseCase
 
         /** @var SellItemRequest $itemRequest */
         foreach ($request->getItems() as $itemRequest) {
-            $product = $this->catalog->getByName($itemRequest->getProductName());
-
-            if ($product == null) {
-                throw new UnknownProductException();
-            }
-
-            $unitaryTax = self::round(($product->getPrice() / 100) * $product->getCategory()->getTaxPercentage());
-            $unitaryTaxedAmount = self::round($product->getPrice() + $unitaryTax);
-            $taxedAmount = self::round($unitaryTaxedAmount * $itemRequest->getQuantity());
-            $taxAmount = self::round($unitaryTax * $itemRequest->getQuantity());
-
-            $orderItem = (new OrderItem())
-                ->setProduct($product)
-                ->setQuantity($itemRequest->getQuantity())
-                ->setTax($taxAmount)
-                ->setTaxedAmount($taxedAmount);
-
-            $order->getItems()->add($orderItem);
-            $order->setTotal($order->getTotal() + $taxedAmount);
-            $order->setTax($order->getTax() + $taxAmount);
-
-            $this->repository->save($order);
+            $this->addOrderLineItems($order, $itemRequest);
         }
 
+        $this->repository->save($order);
+    }
+
+    private function addOrderLineItems(Order $order, SellItemRequest $itemRequest): void
+    {
+        $product = $this->catalog->getByName($itemRequest->getProductName());
+
+        if ($product == null) {
+            throw new UnknownProductException();
+        }
+
+        $unitaryTax = self::round(($product->getPrice() / 100) * $product->getCategory()->getTaxPercentage());
+        $unitaryTaxedAmount = self::round($product->getPrice() + $unitaryTax);
+        $taxedAmount = self::round($unitaryTaxedAmount * $itemRequest->getQuantity());
+        $taxAmount = self::round($unitaryTax * $itemRequest->getQuantity());
+
+        $orderItem = (new OrderItem())
+            ->setProduct($product)
+            ->setQuantity($itemRequest->getQuantity())
+            ->setTax($taxAmount)
+            ->setTaxedAmount($taxedAmount);
+
+        $order->getItems()->add($orderItem);
+        $order->setTotal($order->getTotal() + $taxedAmount);
+        $order->setTax($order->getTax() + $taxAmount);
     }
 
     private static function round(float $amount): float
