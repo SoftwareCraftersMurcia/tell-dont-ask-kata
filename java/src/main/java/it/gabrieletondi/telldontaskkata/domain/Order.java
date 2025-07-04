@@ -130,11 +130,11 @@ public class Order {
         this.status = status;
     }
 
-    public boolean isCreated() {
+    private boolean isCreated() {
         return getStatus().equals(CREATED);
     }
 
-    public boolean isRejected() {
+    private boolean isRejected() {
         return getStatus().equals(OrderStatus.REJECTED);
     }
 

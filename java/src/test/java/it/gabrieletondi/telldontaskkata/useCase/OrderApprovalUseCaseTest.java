@@ -2,6 +2,7 @@ package it.gabrieletondi.telldontaskkata.useCase;
 
 import it.gabrieletondi.telldontaskkata.domain.Order;
 import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
+import it.gabrieletondi.telldontaskkata.domain.PersistableOrder;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -32,8 +33,8 @@ public class OrderApprovalUseCaseTest {
 
         useCase.run(request);
 
-        final Order savedOrder = orderRepository.getSavedOrder();
-        assertThat(savedOrder.isRejected()).isTrue();
+        final PersistableOrder savedOrder = orderRepository.getSavedOrder().toPersistable();
+        assertThat(savedOrder.status()).isEqualTo(OrderStatus.REJECTED);
     }
 
     @Test
