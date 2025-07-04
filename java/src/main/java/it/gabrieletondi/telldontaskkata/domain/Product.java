@@ -17,7 +17,7 @@ public class Product {
     }
 
     BigDecimal calculateTaxedAmount(int quantity) {
-        return getPrice().
+        return price.
                 add(tax())
                 .setScale(2, HALF_UP)
                 .multiply(valueOf(quantity)).setScale(2, HALF_UP);
@@ -29,22 +29,14 @@ public class Product {
     }
 
     BigDecimal tax() {
-        return getPrice()
+        return price
                 .divide(valueOf(100))
-                .multiply(getCategory().getTaxPercentage())
+                .multiply(category.getTaxPercentage())
                 .setScale(2, HALF_UP);
     }
 
     public PersistableProduct toPersistable() {
         return new PersistableProduct(name, price, category);
-    }
-
-    public BigDecimal getPrice() {
-        return price;
-    }
-
-    public Category getCategory() {
-        return category;
     }
 
 }
