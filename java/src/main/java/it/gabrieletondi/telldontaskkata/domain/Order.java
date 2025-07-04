@@ -134,7 +134,7 @@ public class Order {
         return getStatus().equals(CREATED);
     }
 
-    private boolean isRejected() {
+    public boolean isRejected() {
         return getStatus().equals(OrderStatus.REJECTED);
     }
 
