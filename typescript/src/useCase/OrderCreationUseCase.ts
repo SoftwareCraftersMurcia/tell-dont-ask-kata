@@ -34,11 +34,10 @@ class OrderCreationUseCase {
         const quantity = itemRequest.getQuantity();
 
         const orderItem: OrderItem = new OrderItem();
-        
-        OrderCreationUseCase.addProduct(product, quantity, orderItem);
-        
-        order.getItems().push(orderItem);
 
+        OrderItem.addProduct(product, quantity, orderItem);
+
+        order.getItems().push(orderItem);
 
         const unitaryTax1: number = Math.round(product.getPrice() / 100 * product.getCategory().getTaxPercentage() * 100) / 100;
         const unitaryTaxedAmount1: number = Math.round((product.getPrice() + unitaryTax1) * 100) / 100;
@@ -50,18 +49,6 @@ class OrderCreationUseCase {
     }
 
     this.orderRepository.save(order);
-  }
-
-  public static addProduct(product: Product, quantity: number, orderItem: OrderItem) {
-    const unitaryTax: number = Math.round(product.getPrice() / 100 * product.getCategory().getTaxPercentage() * 100) / 100;
-    const unitaryTaxedAmount: number = Math.round((product.getPrice() + unitaryTax) * 100) / 100;
-    const taxedAmount: number = Math.round(unitaryTaxedAmount * quantity * 100) / 100;
-    const taxAmount: number = unitaryTax * quantity;
-
-    orderItem.setProduct(product);
-    orderItem.setQuantity(quantity);
-    orderItem.setTax(taxAmount);
-    orderItem.setTaxedAmount(taxedAmount);
   }
 }
 
