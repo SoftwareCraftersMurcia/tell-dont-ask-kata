@@ -133,4 +133,18 @@ class Order
         return $this;
     }
 
+    public function isShipped(): bool
+    {
+        return $this->getStatus() == OrderStatus::Shipped;
+    }
+
+    public function isRejected(): bool
+    {
+        return $this->getStatus() == OrderStatus::Rejected;
+    }
+
+    public function isApproved(): bool
+    {
+        return $this->getStatus() == OrderStatus::Approved;
+    }
 }
