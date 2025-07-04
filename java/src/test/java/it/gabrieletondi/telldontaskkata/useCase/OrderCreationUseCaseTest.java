@@ -1,15 +1,13 @@
 package it.gabrieletondi.telldontaskkata.useCase;
 
-import it.gabrieletondi.telldontaskkata.domain.Category;
-import it.gabrieletondi.telldontaskkata.domain.Order;
-import it.gabrieletondi.telldontaskkata.domain.OrderStatus;
-import it.gabrieletondi.telldontaskkata.domain.Product;
+import it.gabrieletondi.telldontaskkata.domain.*;
 import it.gabrieletondi.telldontaskkata.doubles.InMemoryProductCatalog;
 import it.gabrieletondi.telldontaskkata.doubles.TestOrderRepository;
 import it.gabrieletondi.telldontaskkata.repository.ProductCatalog;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
@@ -49,22 +47,23 @@ public class OrderCreationUseCaseTest {
 
         useCase.run(request);
 
-        final Order insertedOrder = orderRepository.getSavedOrder();
-        assertThat(insertedOrder.isCreated()).isTrue();
-        assertThat(insertedOrder.getTotal()).isEqualTo(new BigDecimal("23.20"));
-        assertThat(insertedOrder.getTax()).isEqualTo(new BigDecimal("2.13"));
-        assertThat(insertedOrder.getCurrency()).isEqualTo("EUR");
-        assertThat(insertedOrder.getItems()).hasSize(2);
-        assertThat(insertedOrder.getItems().get(0).getProduct().getName()).isEqualTo("salad");
-        assertThat(insertedOrder.getItems().get(0).getProduct().getPrice()).isEqualTo(new BigDecimal("3.56"));
-        assertThat(insertedOrder.getItems().get(0).getQuantity()).isEqualTo(2);
-        assertThat(insertedOrder.getItems().get(0).getTaxedAmount()).isEqualTo(new BigDecimal("7.84"));
-        assertThat(insertedOrder.getItems().get(0).getTax()).isEqualTo(new BigDecimal("0.72"));
-        assertThat(insertedOrder.getItems().get(1).getProduct().getName()).isEqualTo("tomato");
-        assertThat(insertedOrder.getItems().get(1).getProduct().getPrice()).isEqualTo(new BigDecimal("4.65"));
-        assertThat(insertedOrder.getItems().get(1).getQuantity()).isEqualTo(3);
-        assertThat(insertedOrder.getItems().get(1).getTaxedAmount()).isEqualTo(new BigDecimal("15.36"));
-        assertThat(insertedOrder.getItems().get(1).getTax()).isEqualTo(new BigDecimal("1.41"));
+        final PersistableOrder insertedOrder = orderRepository.getSavedOrder().toPersistable();
+        assertThat(insertedOrder.status()).isEqualTo(OrderStatus.CREATED);
+        assertThat(insertedOrder.total()).isEqualTo(new BigDecimal("23.20"));
+        assertThat(insertedOrder.tax()).isEqualTo(new BigDecimal("2.13"));
+        assertThat(insertedOrder.currency()).isEqualTo("EUR");
+        List<OrderItem> items = insertedOrder.items();
+        assertThat(items).hasSize(2);
+        assertThat(items.get(0).getProduct().getName()).isEqualTo("salad");
+        assertThat(items.get(0).getProduct().getPrice()).isEqualTo(new BigDecimal("3.56"));
+        assertThat(items.get(0).getQuantity()).isEqualTo(2);
+        assertThat(items.get(0).getTaxedAmount()).isEqualTo(new BigDecimal("7.84"));
+        assertThat(items.get(0).getTax()).isEqualTo(new BigDecimal("0.72"));
+        assertThat(items.get(1).getProduct().getName()).isEqualTo("tomato");
+        assertThat(items.get(1).getProduct().getPrice()).isEqualTo(new BigDecimal("4.65"));
+        assertThat(items.get(1).getQuantity()).isEqualTo(3);
+        assertThat(items.get(1).getTaxedAmount()).isEqualTo(new BigDecimal("15.36"));
+        assertThat(items.get(1).getTax()).isEqualTo(new BigDecimal("1.41"));
     }
 
     @Test
