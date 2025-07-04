@@ -34,21 +34,12 @@ class OrderApprovalUseCase
         }
 
         if ($request->isApproved()) {
-            $this->approveOrder($order);
+            $order->approve();
         } else {
             $this->rejectOrder($order);
         }
 
         $this->repository->save($order);
-    }
-
-    private function approveOrder(Order $order): void
-    {
-        if ($order->isRejected()) {
-            throw new RejectedOrderCannotBeApprovedException();
-        }
-
-        $order->setStatus(OrderStatus::Approved);
     }
 
     private function rejectOrder(Order $order): void

@@ -4,6 +4,7 @@ declare(strict_types=1);
 namespace Pitchart\TellDontAskKata\Domain;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use Pitchart\TellDontAskKata\UseCase\RejectedOrderCannotBeApprovedException;
 
 class Order
 {
@@ -146,5 +147,14 @@ class Order
     public function isApproved(): bool
     {
         return $this->getStatus() == OrderStatus::Approved;
+    }
+
+    public function approve(): void
+    {
+        if ($this->isRejected()) {
+            throw new RejectedOrderCannotBeApprovedException();
+        }
+
+        $this->status = OrderStatus::Approved;
     }
 }
