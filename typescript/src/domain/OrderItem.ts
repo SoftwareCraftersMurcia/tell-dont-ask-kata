@@ -40,7 +40,7 @@ class OrderItem {
 
   public addProduct(product: Product, quantity: number) {
     const unitaryTax: number = Product.calculateUnitaryTax(product);
-    const unitaryTaxedAmount: number = Math.round((product.getPrice() + unitaryTax) * 100) / 100;
+    const unitaryTaxedAmount: number = Product.calculateUnitaryTaxedAmount(product, unitaryTax);
     const taxedAmount: number = Math.round(unitaryTaxedAmount * quantity * 100) / 100;
     const taxAmount: number = unitaryTax * quantity;
 

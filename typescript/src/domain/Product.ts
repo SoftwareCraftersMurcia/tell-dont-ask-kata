@@ -32,6 +32,10 @@ class Product {
   public static calculateUnitaryTax(product: Product): number {
     return Math.round(product.getPrice() / 100 * product.getCategory().getTaxPercentage() * 100) / 100;
   }
+
+  public static calculateUnitaryTaxedAmount(product: Product, unitaryTax: number): number {
+    return Math.round((product.getPrice() + unitaryTax) * 100) / 100;
+  }
 }
 
 export default Product;
