@@ -91,7 +91,7 @@ public class Order {
         this.setTax(this.getTax().add(orderItem.getTax()));
     }
 
-    public BigDecimal getTotal() {
+    private BigDecimal getTotal() {
         return total;
     }
 
