@@ -91,30 +91,6 @@ public class Order {
         this.setTax(this.getTax().add(orderItem.getTax()));
     }
 
-    private BigDecimal getTotal() {
-        return total;
-    }
-
-    private String getCurrency() {
-        return currency;
-    }
-
-    public List<OrderItem> getItems() {
-        return items;
-    }
-
-    public BigDecimal getTax() {
-        return tax;
-    }
-
-    private OrderStatus getStatus() {
-        return status;
-    }
-
-    public int getId() {
-        return id;
-    }
-
     public PersistableOrder toPersistable() {
         return new PersistableOrder(
                 getId(),
@@ -124,6 +100,30 @@ public class Order {
                 getCurrency(),
                 getItems()
         );
+    }
+
+    private BigDecimal getTotal() {
+        return total;
+    }
+
+    private String getCurrency() {
+        return currency;
+    }
+
+    private List<OrderItem> getItems() {
+        return items;
+    }
+
+    private BigDecimal getTax() {
+        return tax;
+    }
+
+    private OrderStatus getStatus() {
+        return status;
+    }
+
+    private int getId() {
+        return id;
     }
 
     private void setStatus(OrderStatus status) {
