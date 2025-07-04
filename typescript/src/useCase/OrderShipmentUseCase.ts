@@ -26,9 +26,10 @@ class OrderShipmentUseCase {
       throw new OrderCannotBeShippedTwiceException();
     }
 
+    order.setStatus(OrderStatus.SHIPPED);
+
     this.shipmentService.ship(order);
 
-    order.setStatus(OrderStatus.SHIPPED);
     this.orderRepository.save(order);
   }
 }
