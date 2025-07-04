@@ -1,5 +1,7 @@
 import OrderItem from './OrderItem';
 import { OrderStatus } from './OrderStatus';
+import OrderCannotBeShippedException from "../useCase/OrderCannotBeShippedException";
+import OrderCannotBeShippedTwiceException from "../useCase/OrderCannotBeShippedTwiceException";
 
 class Order {
   private total: number;
@@ -56,6 +58,18 @@ class Order {
   public setId(id: number): void {
       this.id = id;
   }
+
+    shipped() {
+        if (this.getStatus() === OrderStatus.CREATED || this.getStatus() === OrderStatus.REJECTED) {
+            throw new OrderCannotBeShippedException();
+        }
+
+        if (this.getStatus() === OrderStatus.SHIPPED) {
+            throw new OrderCannotBeShippedTwiceException();
+        }
+
+        this.setStatus(OrderStatus.SHIPPED);
+    }
 }
 
 export default Order;
