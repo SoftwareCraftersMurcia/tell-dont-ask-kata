@@ -46,8 +46,9 @@ public class OrderCreationUseCaseTest {
         assertThat(insertedOrder.currency()).isEqualTo("EUR");
         List<OrderItem> items = insertedOrder.items();
         assertThat(items).hasSize(2);
-        assertThat(items.get(0).getProduct().getName()).isEqualTo("salad");
-        assertThat(items.get(0).getProduct().getPrice()).isEqualTo(new BigDecimal("3.56"));
+        PersistableProduct product = items.get(0).getProduct().toPersistable();
+        assertThat(product.name()).isEqualTo("salad");
+        assertThat(product.price()).isEqualTo(new BigDecimal("3.56"));
         assertThat(items.get(0).getQuantity()).isEqualTo(2);
         assertThat(items.get(0).getTaxedAmount()).isEqualTo(new BigDecimal("7.84"));
         assertThat(items.get(0).getTax()).isEqualTo(new BigDecimal("0.72"));

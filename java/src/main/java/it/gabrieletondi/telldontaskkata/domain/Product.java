@@ -35,6 +35,10 @@ public class Product {
                 .setScale(2, HALF_UP);
     }
 
+    public PersistableProduct toPersistable() {
+        return new PersistableProduct(name, price, category);
+    }
+
     public String getName() {
         return name;
     }
