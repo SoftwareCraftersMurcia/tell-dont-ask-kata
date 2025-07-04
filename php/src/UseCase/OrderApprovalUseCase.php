@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Pitchart\TellDontAskKata\UseCase;
 
-use Pitchart\TellDontAskKata\Domain\Order;
-use Pitchart\TellDontAskKata\Domain\OrderStatus;
 use Pitchart\TellDontAskKata\Repository\OrderRepository;
 
 class OrderApprovalUseCase
@@ -36,18 +34,9 @@ class OrderApprovalUseCase
         if ($request->isApproved()) {
             $order->approve();
         } else {
-            $this->rejectOrder($order);
+            $order->reject();
         }
 
         $this->repository->save($order);
-    }
-
-    private function rejectOrder(Order $order): void
-    {
-        if ($order->isApproved()) {
-            throw new ApprovedOrderCannotBeRejectedException();
-        }
-
-        $order->setStatus(OrderStatus::Rejected);
     }
 }
