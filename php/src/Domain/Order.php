@@ -6,6 +6,7 @@ namespace Pitchart\TellDontAskKata\Domain;
 use Doctrine\Common\Collections\ArrayCollection;
 use Pitchart\TellDontAskKata\UseCase\ApprovedOrderCannotBeRejectedException;
 use Pitchart\TellDontAskKata\UseCase\RejectedOrderCannotBeApprovedException;
+use Pitchart\TellDontAskKata\UseCase\SellItemRequest;
 
 class Order
 {
@@ -166,5 +167,25 @@ class Order
         }
 
         $this->status = OrderStatus::Rejected;
+    }
+
+    public function addLineItems(Product $product, int $quantity): void
+    {
+        $round = static fn(float $amount): float => round($amount, 2);
+
+        $unitaryTax = $round(($product->getPrice() / 100) * $product->getCategory()->getTaxPercentage());
+        $unitaryTaxedAmount = $round($product->getPrice() + $unitaryTax);
+        $taxedAmount = $round($unitaryTaxedAmount * $quantity);
+        $taxAmount = $round($unitaryTax * $quantity);
+
+        $orderItem = (new OrderItem())
+            ->setProduct($product)
+            ->setQuantity($quantity)
+            ->setTax($taxAmount)
+            ->setTaxedAmount($taxedAmount);
+
+        $this->getItems()->add($orderItem);
+        $this->setTotal($this->getTotal() + $taxedAmount);
+        $this->setTax($this->getTax() + $taxAmount);
     }
 }

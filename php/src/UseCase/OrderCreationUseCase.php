@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Pitchart\TellDontAskKata\UseCase;
@@ -6,6 +7,7 @@ namespace Pitchart\TellDontAskKata\UseCase;
 use Pitchart\TellDontAskKata\Domain\Order;
 use Pitchart\TellDontAskKata\Domain\OrderItem;
 use Pitchart\TellDontAskKata\Domain\OrderStatus;
+use Pitchart\TellDontAskKata\Domain\Product;
 use Pitchart\TellDontAskKata\Repository\OrderRepository;
 use Pitchart\TellDontAskKata\Repository\ProductCatalog;
 
@@ -36,38 +38,19 @@ class OrderCreationUseCase
 
         /** @var SellItemRequest $itemRequest */
         foreach ($request->getItems() as $itemRequest) {
-            $this->addOrderLineItems($order, $itemRequest);
+            $product = $this->getProduct($itemRequest);
+            $order->addLineItems($product, $itemRequest->getQuantity());
         }
 
         $this->repository->save($order);
     }
 
-    private function addOrderLineItems(Order $order, SellItemRequest $itemRequest): void
+    /**
+     * @throws UnknownProductException
+     */
+    private function getProduct(SellItemRequest $itemRequest): Product
     {
-        $product = $this->catalog->getByName($itemRequest->getProductName());
-
-        if ($product == null) {
-            throw new UnknownProductException();
-        }
-
-        $unitaryTax = self::round(($product->getPrice() / 100) * $product->getCategory()->getTaxPercentage());
-        $unitaryTaxedAmount = self::round($product->getPrice() + $unitaryTax);
-        $taxedAmount = self::round($unitaryTaxedAmount * $itemRequest->getQuantity());
-        $taxAmount = self::round($unitaryTax * $itemRequest->getQuantity());
-
-        $orderItem = (new OrderItem())
-            ->setProduct($product)
-            ->setQuantity($itemRequest->getQuantity())
-            ->setTax($taxAmount)
-            ->setTaxedAmount($taxedAmount);
-
-        $order->getItems()->add($orderItem);
-        $order->setTotal($order->getTotal() + $taxedAmount);
-        $order->setTax($order->getTax() + $taxAmount);
-    }
-
-    private static function round(float $amount): float
-    {
-        return round($amount, 2);
+        return $this->catalog->getByName($itemRequest->getProductName())
+            ??  throw new UnknownProductException();
     }
 }
