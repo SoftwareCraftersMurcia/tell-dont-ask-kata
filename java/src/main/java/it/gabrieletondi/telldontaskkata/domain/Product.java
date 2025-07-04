@@ -10,6 +10,12 @@ public class Product {
     private BigDecimal price;
     private Category category;
 
+    public Product(String salad, BigDecimal bigDecimal, Category food) {
+        setName(salad);
+        setPrice(bigDecimal);
+        setCategory(food);
+    }
+
     BigDecimal calculateTaxedAmount(int quantity) {
         return getPrice().
                 add(tax())
