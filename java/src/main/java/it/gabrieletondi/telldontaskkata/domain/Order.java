@@ -95,7 +95,7 @@ public class Order {
         return total;
     }
 
-    public String getCurrency() {
+    private String getCurrency() {
         return currency;
     }
 
