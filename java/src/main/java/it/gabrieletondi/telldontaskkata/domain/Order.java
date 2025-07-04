@@ -25,6 +25,19 @@ public class Order {
         this.id = id;
     }
 
+    private Order(BigDecimal total, String currency, List<OrderItem> items, BigDecimal tax, OrderStatus status, int id) {
+        this.total = total;
+        this.currency = currency;
+        this.items = items;
+        this.tax = tax;
+        this.status = status;
+        this.id = id;
+    }
+
+    public static Order createFromRaw(OrderStatus orderStatus, List<OrderItem> items, BigDecimal total, BigDecimal tax, String currency, int id) {
+        return new Order(total, currency, items, tax, orderStatus, id);
+    }
+
     public static Order createWithId(int id) {
         return new Order(OrderStatus.CREATED, id);
     }
@@ -104,6 +117,17 @@ public class Order {
 
     public int getId() {
         return id;
+    }
+
+    public PersistableOrder toPersistable() {
+        return new PersistableOrder(
+                getId(),
+                getStatus(),
+                getTotal(),
+                getTax(),
+                getCurrency(),
+                getItems()
+        );
     }
 
     private boolean isCreated() {
