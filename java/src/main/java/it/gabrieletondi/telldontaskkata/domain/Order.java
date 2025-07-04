@@ -138,7 +138,7 @@ public class Order {
         return getStatus().equals(OrderStatus.REJECTED);
     }
 
-    public boolean isApproved() {
+    private boolean isApproved() {
         return getStatus().equals(OrderStatus.APPROVED);
     }
 

@@ -21,8 +21,8 @@ public class OrderApprovalUseCaseTest {
 
         useCase.run(request);
 
-        final Order savedOrder = orderRepository.getSavedOrder();
-        assertThat(savedOrder.isApproved()).isTrue();
+        final PersistableOrder savedOrder = orderRepository.getSavedOrder().toPersistable();
+        assertThat(savedOrder.status()).isEqualTo(OrderStatus.APPROVED);
     }
 
     @Test
