@@ -130,7 +130,7 @@ public class Order {
         this.status = status;
     }
 
-    private boolean isCreated() {
+    public boolean isCreated() {
         return getStatus().equals(CREATED);
     }
 
@@ -142,7 +142,7 @@ public class Order {
         return getStatus().equals(OrderStatus.APPROVED);
     }
 
-    private boolean isShipped() {
+    public boolean isShipped() {
         return getStatus().equals(OrderStatus.SHIPPED);
     }
 
