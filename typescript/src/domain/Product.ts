@@ -29,12 +29,12 @@ class Product {
     this.category = category;
   }
 
-  public static calculateUnitaryTax(product: Product): number {
-    return Math.round(product.getPrice() / 100 * product.getCategory().getTaxPercentage() * 100) / 100;
+  public calculateUnitaryTax(): number {
+    return Math.round(this.getPrice() / 100 * this.getCategory().getTaxPercentage() * 100) / 100;
   }
 
-  public static calculateUnitaryTaxedAmount(product: Product, unitaryTax: number): number {
-    return Math.round((product.getPrice() + unitaryTax) * 100) / 100;
+  public calculateUnitaryTaxedAmount(unitaryTax: number): number {
+    return Math.round((this.getPrice() + unitaryTax) * 100) / 100;
   }
 }
 
