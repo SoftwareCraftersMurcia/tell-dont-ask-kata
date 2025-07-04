@@ -111,10 +111,6 @@ public class Order {
         return status;
     }
 
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
-
     public int getId() {
         return id;
     }
@@ -128,6 +124,10 @@ public class Order {
                 getCurrency(),
                 getItems()
         );
+    }
+
+    private void setStatus(OrderStatus status) {
+        this.status = status;
     }
 
     private boolean isCreated() {
