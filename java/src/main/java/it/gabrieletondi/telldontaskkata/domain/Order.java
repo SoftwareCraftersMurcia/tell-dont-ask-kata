@@ -157,4 +157,30 @@ public class Order {
     private void setTax(BigDecimal tax) {
         this.tax = tax;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Order order = (Order) o;
+        return id == order.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Integer.hashCode(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", status=" + status +
+                ", total=" + total +
+                ", tax=" + tax +
+                ", currency='" + currency + '\'' +
+                ", items=" + items +
+                '}';
+    }
+
 }
