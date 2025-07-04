@@ -39,10 +39,6 @@ public class Product {
         return new PersistableProduct(name, price, category);
     }
 
-    public String getName() {
-        return name;
-    }
-
     public BigDecimal getPrice() {
         return price;
     }

@@ -52,8 +52,9 @@ public class OrderCreationUseCaseTest {
         assertThat(items.get(0).getQuantity()).isEqualTo(2);
         assertThat(items.get(0).getTaxedAmount()).isEqualTo(new BigDecimal("7.84"));
         assertThat(items.get(0).getTax()).isEqualTo(new BigDecimal("0.72"));
-        assertThat(items.get(1).getProduct().getName()).isEqualTo("tomato");
-        assertThat(items.get(1).getProduct().getPrice()).isEqualTo(new BigDecimal("4.65"));
+        PersistableProduct product2 = items.get(1).getProduct().toPersistable();
+        assertThat(product2.name()).isEqualTo("tomato");
+        assertThat(product2.price()).isEqualTo(new BigDecimal("4.65"));
         assertThat(items.get(1).getQuantity()).isEqualTo(3);
         assertThat(items.get(1).getTaxedAmount()).isEqualTo(new BigDecimal("15.36"));
         assertThat(items.get(1).getTax()).isEqualTo(new BigDecimal("1.41"));
