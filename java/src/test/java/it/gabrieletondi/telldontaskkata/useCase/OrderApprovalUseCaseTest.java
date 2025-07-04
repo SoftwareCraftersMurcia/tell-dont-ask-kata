@@ -21,7 +21,7 @@ public class OrderApprovalUseCaseTest {
         useCase.run(request);
 
         final Order savedOrder = orderRepository.getSavedOrder();
-        assertThat(savedOrder.getStatus()).isEqualTo(OrderStatus.APPROVED);
+        assertThat(savedOrder.isApproved()).isTrue();
     }
 
     @Test
