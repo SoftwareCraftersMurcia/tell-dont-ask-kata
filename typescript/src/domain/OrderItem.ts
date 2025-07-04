@@ -38,16 +38,16 @@ class OrderItem {
     this.tax = tax;
   }
 
-  public static addProduct(product: Product, quantity: number, orderItem: OrderItem) {
+  public addProduct(product: Product, quantity: number, orderItem: OrderItem) {
     const unitaryTax: number = Math.round(product.getPrice() / 100 * product.getCategory().getTaxPercentage() * 100) / 100;
     const unitaryTaxedAmount: number = Math.round((product.getPrice() + unitaryTax) * 100) / 100;
     const taxedAmount: number = Math.round(unitaryTaxedAmount * quantity * 100) / 100;
     const taxAmount: number = unitaryTax * quantity;
 
-    orderItem.setProduct(product);
-    orderItem.setQuantity(quantity);
-    orderItem.setTax(taxAmount);
-    orderItem.setTaxedAmount(taxedAmount);
+    this.setProduct(product);
+    this.setQuantity(quantity);
+    this.setTax(taxAmount);
+    this.setTaxedAmount(taxedAmount);
   }
 }
 

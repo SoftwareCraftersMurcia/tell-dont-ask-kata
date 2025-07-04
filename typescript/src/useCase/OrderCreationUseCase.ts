@@ -35,7 +35,7 @@ class OrderCreationUseCase {
 
         const orderItem: OrderItem = new OrderItem();
 
-        OrderItem.addProduct(product, quantity, orderItem);
+        orderItem.addProduct(product, quantity, orderItem);
 
         order.getItems().push(orderItem);
 
