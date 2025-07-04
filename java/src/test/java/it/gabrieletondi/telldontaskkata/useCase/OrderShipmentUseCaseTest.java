@@ -23,7 +23,7 @@ public class OrderShipmentUseCaseTest {
 
         useCase.run(request);
 
-        assertThat(orderRepository.getSavedOrder().isShipped()).isTrue();
+        assertThat(orderRepository.getSavedOrder().toPersistable().status()).isEqualTo(OrderStatus.SHIPPED);
         assertThat(shipmentService.getShippedOrder()).isEqualTo(initialOrder);
     }
 

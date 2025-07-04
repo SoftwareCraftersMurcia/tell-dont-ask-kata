@@ -142,7 +142,7 @@ public class Order {
         return getStatus().equals(OrderStatus.APPROVED);
     }
 
-    public boolean isShipped() {
+    private boolean isShipped() {
         return getStatus().equals(OrderStatus.SHIPPED);
     }
 
