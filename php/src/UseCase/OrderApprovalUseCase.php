@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace Pitchart\TellDontAskKata\UseCase;
@@ -32,17 +33,12 @@ class OrderApprovalUseCase
             throw new ShippedOrdersCannotBeChangedException();
         }
 
-        if($request->isApproved()){
+        if ($request->isApproved()) {
             $this->approveOrder($order);
-//            $order->approve(); // idea
-//            return;
+        } else {
+            $this->rejectOrder($order);
         }
 
-        if (!$request->isApproved() && $order->isApproved()) {
-            throw new ApprovedOrderCannotBeRejectedException();
-        }
-
-        $order->setStatus($request->isApproved() ? OrderStatus::Approved : OrderStatus::Rejected);
         $this->repository->save($order);
     }
 
@@ -55,5 +51,12 @@ class OrderApprovalUseCase
         $order->setStatus(OrderStatus::Approved);
     }
 
+    private function rejectOrder(Order $order): void
+    {
+        if ($order->isApproved()) {
+            throw new ApprovedOrderCannotBeRejectedException();
+        }
 
+        $order->setStatus(OrderStatus::Rejected);
+    }
 }
